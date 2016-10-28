@@ -91,3 +91,8 @@ UIGraphicsEndImageContext()
 
 // PlaygroundのTimelineに表示するためのview
 let preview = view
+
+import XCPlayground
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = preview
+
