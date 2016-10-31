@@ -145,4 +145,3 @@ public struct Ship {
 //    return resultRegion(target.position)
 //  }
 //}
-
