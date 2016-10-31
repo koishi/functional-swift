@@ -35,14 +35,14 @@ func drawShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange), color: UIColor.green.withAlphaComponent(0.5))
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.red.withAlphaComponent(0.5))
-  drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
+  drawCircle(arcCenter: shipCenterPoint, radius: 4, color: UIColor.blue)
 }
 
 // 僚艦を描く
 func drawfriendlyShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.red.withAlphaComponent(0.5))
-  drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
+  drawCircle(arcCenter: shipCenterPoint, radius: 4, color: UIColor.green)
 }
 
 // 敵艦を描く
