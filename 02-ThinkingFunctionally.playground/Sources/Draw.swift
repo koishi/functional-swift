@@ -8,13 +8,10 @@ public func draw(ship: Ship, friendly: Ship, target: Ship) -> UIView {
   
   UIGraphicsBeginImageContextWithOptions(size, false, 0)
 
+  drawField(size: size)
   drawShip(size: size, ship: ship)
   drawOtherShip(size: size, ship: friendly)
   drawTargetShip(size: size, ship: target)
-  
-  // 上下の線を描写
-  drawLine(from: CGPoint(x: 0, y: size.height / 2), to: CGPoint(x: size.width, y: size.height / 2))
-  drawLine(from: CGPoint(x: size.width / 2, y: 0), to: CGPoint(x: size.width / 2, y: size.height))
 
   view.layer.contents = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
   UIGraphicsEndImageContext()
@@ -22,10 +19,15 @@ public func draw(ship: Ship, friendly: Ship, target: Ship) -> UIView {
   return view
 }
 
+func drawField(size: CGSize) {
+  drawLine(from: CGPoint(x: 0, y: size.height / 2), to: CGPoint(x: size.width, y: size.height / 2))
+  drawLine(from: CGPoint(x: size.width / 2, y: 0), to: CGPoint(x: size.width / 2, y: size.height))
+}
+
 // 自分の船を描く
 func drawShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
-  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange), color: UIColor.green)
+  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange), color: UIColor.green.withAlphaComponent(0.5))
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.white)
   drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
 }
