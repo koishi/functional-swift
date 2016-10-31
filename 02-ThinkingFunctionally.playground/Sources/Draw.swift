@@ -1,8 +1,7 @@
 import UIKit
 
-public func draw(ship: Ship, friendly: Ship, target: Ship) -> UIView {
+public func draw(size: CGSize, ship: Ship, friendly: Ship?, target: Ship?) -> UIView {
 
-  let size = CGSize(width: 320, height: 320)
   let view:UIView = UIView(frame: CGRect(origin: CGPoint.zero, size: size))
   view.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
   
@@ -10,8 +9,14 @@ public func draw(ship: Ship, friendly: Ship, target: Ship) -> UIView {
 
   drawField(size: size)
   drawShip(size: size, ship: ship)
-  drawOtherShip(size: size, ship: friendly)
-  drawTargetShip(size: size, ship: target)
+
+  if let _ = friendly {
+    drawfriendlyShip(size: size, ship: friendly!)
+  }
+
+  if let _ = target {
+    drawTargetShip(size: size, ship: target!)
+  }
 
   view.layer.contents = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
   UIGraphicsEndImageContext()
@@ -25,7 +30,7 @@ func drawField(size: CGSize) {
   drawLine(from: CGPoint(x: size.width / 2, y: 0), to: CGPoint(x: size.width / 2, y: size.height))
 }
 
-// 自分の船を描く
+// 自艦を描く
 func drawShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange), color: UIColor.green.withAlphaComponent(0.5))
@@ -33,14 +38,14 @@ func drawShip(size: CGSize, ship: Ship) {
   drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
 }
 
-// 味方の船を描く
-func drawOtherShip(size: CGSize, ship: Ship) {
+// 僚艦を描く
+func drawfriendlyShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.red.withAlphaComponent(0.5))
   drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
 }
 
-// 目標の船を描く
+// 敵艦を描く
 func drawTargetShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
   drawCircle(arcCenter: shipCenterPoint, radius: 4, color: UIColor.red)
