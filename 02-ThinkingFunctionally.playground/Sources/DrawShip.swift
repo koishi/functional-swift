@@ -43,53 +43,35 @@ import UIKit
 //}
 
 public func drawShip(ship: Ship) -> UIView {
-  
-  // UIViewを生成
+
   let size = CGSize(width: 320, height: 320)
   let view:UIView = UIView(frame: CGRect(origin: CGPoint.zero, size: size))
   view.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
   
-  // CoreGraphicsで描画する
   UIGraphicsBeginImageContextWithOptions(size, false, 0)
 
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
 
   // firingRangeを描写
-  let firingRange = UIBezierPath(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange),  startAngle: 0, endAngle: CGFloat(M_PI)*2, clockwise: true)
-  UIColor.blue.setStroke()
-  firingRange.lineWidth = 2
-  UIColor.green.setFill()
-  firingRange.stroke()
-  firingRange.fill()
+  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange), color: UIColor.green)
 
   // unsafeRangeを描写
-  let unsafeRange = UIBezierPath(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange),  startAngle: 0, endAngle: CGFloat(M_PI)*2, clockwise: true)
-  UIColor.blue.setStroke()
-  unsafeRange.lineWidth = 2
-  UIColor.red.setFill()
-  unsafeRange.stroke()
-  unsafeRange.fill()
+  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.red)
 
   // 船の中心を描写
-  let center = UIBezierPath(arcCenter: shipCenterPoint, radius: 2,  startAngle: 0, endAngle: CGFloat(M_PI) * 2, clockwise: true)
-  UIColor.black.setStroke();
-  center.lineWidth = 4
-  center.stroke()
+  drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
 
   // 上下の線を描写
   drawLine(from: CGPoint(x: 0, y: size.height / 2), to: CGPoint(x: size.width, y: size.height / 2))
   drawLine(from: CGPoint(x: size.width / 2, y: 0), to: CGPoint(x: size.width / 2, y: size.height))
 
-  // viewのlayerに描画したものをセットする
   view.layer.contents = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
-  
   UIGraphicsEndImageContext()
-  
-  // PlaygroundのTimelineに表示するためのview
+
   return view
 }
 
-// 直線を書く
+// 直線を描く
 func drawLine(from: CGPoint, to: CGPoint) {
   let path_line = UIBezierPath();
   path_line.move(to: from);
@@ -98,3 +80,12 @@ func drawLine(from: CGPoint, to: CGPoint) {
   path_line.stroke();
 }
 
+// 円を描く
+func drawCircle(arcCenter: CGPoint, radius: CGFloat, color: UIColor) {
+  let path = UIBezierPath(arcCenter: arcCenter, radius: radius, startAngle: 0, endAngle: CGFloat(M_PI)*2, clockwise: true)
+  UIColor.blue.setStroke()
+  path.lineWidth = 2
+  color.setFill()
+  path.stroke()
+  path.fill()
+}
