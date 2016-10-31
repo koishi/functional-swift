@@ -28,14 +28,14 @@ func drawField(size: CGSize) {
 func drawShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
   drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.firingRange), color: UIColor.green.withAlphaComponent(0.5))
-  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.white)
+  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.red.withAlphaComponent(0.5))
   drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
 }
 
 // 味方の船を描く
 func drawOtherShip(size: CGSize, ship: Ship) {
   let shipCenterPoint = CGPoint(x: size.width / 2 + CGFloat(ship.position.x), y: size.height / 2 + CGFloat(ship.position.y) * -1)
-  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.white)
+  drawCircle(arcCenter: shipCenterPoint, radius: CGFloat(ship.unsafeRange), color: UIColor.red.withAlphaComponent(0.5))
   drawCircle(arcCenter: shipCenterPoint, radius: 2, color: UIColor.black)
 }
 
