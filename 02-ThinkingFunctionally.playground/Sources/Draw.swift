@@ -19,6 +19,7 @@ public func draw(ship: Ship, friendly: Ship, target: Ship) -> UIView {
   return view
 }
 
+// フィールドを書く
 func drawField(size: CGSize) {
   drawLine(from: CGPoint(x: 0, y: size.height / 2), to: CGPoint(x: size.width, y: size.height / 2))
   drawLine(from: CGPoint(x: size.width / 2, y: 0), to: CGPoint(x: size.width / 2, y: size.height))
@@ -50,7 +51,7 @@ func drawLine(from: CGPoint, to: CGPoint) {
   let path_line = UIBezierPath();
   path_line.move(to: from);
   path_line.addLine(to: to);
-  UIColor.black.setStroke();
+  UIColor.black.withAlphaComponent(0.5).setStroke();
   path_line.stroke();
 }
 
